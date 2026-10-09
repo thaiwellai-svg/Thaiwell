@@ -10,7 +10,7 @@ cd "$(dirname "$0")/.."
 export NODE_OPTIONS="--no-experimental-strip-types"
 TEAM=${TEAM:-FFFGJANVWN}
 BUNDLE_ID=${BUNDLE_ID:-com.oommie.thaiwell}
-DEVICE=${DEVICE:-$(xcrun devicectl list devices 2>/dev/null | awk '/iPhone/ && /available/ {for (i=1;i<=NF;i++) if ($i ~ /^[0-9A-F-]{36}$/) {print $i; exit}}')}
+DEVICE=${DEVICE:-$(xcrun devicectl list devices 2>/dev/null | awk '/iPhone/ && /available/ {for (i=1;i<=NF;i++) if ($i ~ /^[0-9A-F-]{36}$/ || $i ~ /^[0-9A-F]{8}-[0-9A-F]{16}$/) {print $i; exit}}')}
 [ -n "$DEVICE" ] || { echo "ไม่พบ iPhone ที่เชื่อมต่อ (ต่อสายหรือ Wi-Fi เดียวกัน และเปิด Developer Mode)"; exit 1; }
 [ -d ios/Pods ] || (cd ios && pod install)
 PBX=ios/ThaiWellAI.xcodeproj/project.pbxproj
